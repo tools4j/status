@@ -1,0 +1,26 @@
+[
+  {
+    "name": "prod-db",
+    "statusText": "Server Down!",
+    "status": "error",
+    "link": "http://www.google.com"
+  },
+  {
+    "name": "prod-cache-1",
+    "statusText": "OK",
+    "status": "ok",
+    "link": "http://www.dropbox.com"
+  },
+  {
+    "name": "prod-cache-2",
+    "statusText": "Disk usage 95%",
+    "status": "warning",
+    "link": "http://www.hbo.com"
+  },
+  {
+    "name": "prod-web",
+    "statusText": "OK",
+    "status": "ok",
+    "link": "http://www.yahoo.com"
+  }
+]

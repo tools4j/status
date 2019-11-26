@@ -1,0 +1,72 @@
+{
+  "sleepBetweenChecksMs": "10000",
+  "group": [{
+    "heading": "Europe",
+    "group": [
+      {
+        "heading": "Production",
+        "checks": [
+          {
+            "name": "prod-db",
+            "url": "test/test1.txt"
+          },
+          {
+            "name": "prod-web",
+            "url": "test/test2.json"
+          }
+        ]
+      },
+      {
+        "heading": "QA",
+        "checks": [
+          {
+            "name": "qa-web",
+            "url": "test/test3.json"
+          }
+        ]
+      }
+    ]
+  },
+    {
+      "heading": "Americas",
+      "group": [
+        {
+          "heading": "Production",
+          "checks": [
+            {
+              "name": "americas-prod",
+              "url": "test/test4.json",
+              "parse": true
+            }
+          ]
+        },
+        {
+          "heading": "UAT",
+          "checks": [
+            {
+              "name": "americas-uat",
+              "url": "test/test5.json",
+              "parse": true,
+              "parseSpec": {
+                "name": {"propertyName": "name"},
+                "link": {"propertyName": "link"},
+                "status": {"propertyName": "status"},
+                "statusText": {"asCode": "jsonElement.status + ' - ' + jsonElement.version"},
+                "statusToolTip": {"propertyName": "link"}
+              }
+            }
+          ]
+        },
+        {
+          "heading": "QA",
+          "checks": [
+            {
+              "name": "americas-qa",
+              "url": "test/blah.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

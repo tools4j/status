@@ -1,0 +1,27 @@
+{
+  "sleepBetweenChecksMs": "10000",
+  "group": [
+    {
+      "heading": "Production",
+      "checks": [
+        {
+          "name": "prod-db",
+          "url": "my.domain.org/prod-db-status.json"
+        },
+        {
+          "name": "prod-web",
+          "url": "my.domain.org/prod-web-status.json"
+        }
+      ]
+    },
+    {
+      "heading": "QA",
+      "checks": [
+        {
+          "name": "qa-web",
+          "url": "my.domain.org/qa-web-status.json"
+        }
+      ]
+    }
+  ]
+}

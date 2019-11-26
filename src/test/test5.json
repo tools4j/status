@@ -1,0 +1,20 @@
+[
+  {
+    "name": "uat-db",
+    "link": "http://www.google.com",
+    "status": "error",
+    "version": "v1.2.5"
+  },
+  {
+    "name": "uat-cache",
+    "link": "http://www.dropbox.com",
+    "status": "ok",
+    "version": "v1.2.3"
+  },
+  {
+    "name": "uat-web",
+    "link": "http://www.hbo.com",
+    "status": "ok",
+    "version": "v1.2.4"
+  }
+]

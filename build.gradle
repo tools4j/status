@@ -1,0 +1,28 @@
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+task copyFilesToBuildDir(type: Copy) {
+    group 'build'
+    from 'src'
+    into 'build/dist/files'
+    exclude '*test*'
+}
+
+task createZip(type: Zip) {
+    group 'build'
+    dependsOn(copyFilesToBuildDir)
+    from 'build/dist/files'
+    include '*'
+    archiveName "status-${project.version}.zip"
+    destinationDir(file('build/dist/zip/'))
+}
+
+task copyZipToDistDirectory(type: Copy) {
+    group 'build'
+    dependsOn(createZip)
+    from 'build/dist/zip/'
+    into 'dist/'
+}
