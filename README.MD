@@ -1,13 +1,16 @@
 # Introduction
 Status is a small HTML/JavaScript application that can visually monitor a set of URLs.
-It was built for monitoring a set of micro-services, but can be used to monitor anything which has an accessible URL.
+
+It was built for monitoring a set of microservices, but can be used to monitor anything which has an accessible URL.
+
+Status polls the configured URLs periodically and renders status 'tiles' based on the results.
 
 # Limitations
-## Status cannot access URLs from a different domain
-Status uses ajax to fetch the config file, and to poll URLs.  Due to Cross Site Scripting limitations in modern browsers, this implementation does NOT support checking URLs from different domains. _Different sub-domains are fine_.  e.g. if your status page is hosted at abc.blah.com, it should be ok to monitor a URL at def.blah.com.
+## Status cannot easily access URLs from a different domain
+Status uses AJAX to fetch the config file, and to poll URLs.  Due to restrictions put in place in modern browsers to prevent Cross Site Scripting (XSS) attacks, AJAX cannot easily interact with pages from different domains.  <a href="https://www.moesif.com/blog/technical/cors/Authoritative-Guide-to-CORS-Cross-Origin-Resource-Sharing-for-REST-APIs/">See here</a> for more info.  If you wish to access pages on a different domain, then you will need to configure the "Access-Control-Allow-Origin" policy on the web server that you are polling.  See the documentation for your specific web server on how to configure.
 
 ## Browser support
-Status uses EcmaScript6.  See <a href="https://www.w3schools.com/js/js_es6.asp">here</a> for a list of compatible browsers.
+Status uses EcmaScript6.  See <a href="https://www.w3schools.com/js/js_es6.asp">here</a> for a list of compatible browsers.  Anything after 2016 should be fine.  (With the exception of IE).
 
 # Installation
 * Download the latest distribution from <a href="tree/master/dist">here</a>.  
