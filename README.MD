@@ -2,22 +2,22 @@
 Status is a small HTML/JavaScript application that can visually monitor a set of URLs.
 It was built for monitoring a set of micro-services, but can be used to monitor anything which has an accessible URL.
 
-#Limitations
+# Limitations
 ## Status cannot access URLs from a different domain
 Status uses ajax to fetch the config file, and to poll URLs.  Due to Cross Site Scripting limitations in modern browsers, this implementation does NOT support checking URLs from different domains. _Different sub-domains are fine_.  e.g. if your status page is hosted at abc.blah.com, it should be ok to monitor a URL at def.blah.com.
 
 ## Browser support
-Status uses EcmaScript6.  Most browsers >= 2016 should support ES6.
+Status uses EcmaScript6.  See <a href="https://www.w3schools.com/js/js_es6.asp">here</a> for a list of compatible browsers.
 
 # Installation
-* Download the latest distribution from here.  
-* Unzip it to a folder which is served by a web server.  (It is not enough to just unzip to a directory, and open into a web browser.  As Status uses ajax to fetch the config file.  Also, cross domain scripting will forbid you from checking any URLs.)
+* Download the latest distribution from <a href="tree/master/dist">here</a>.  
+* Unzip it to a folder which is served by a web server.  (It is not enough to just unzip to a directory and open into a web browser as Status uses ajax to fetch the config file and to poll URLs, and ajax won't work if the status html and JavaScript is not served from a web server.)
 * Edit the config, and enter URLs that you wish to check.
 * View status.html on your web server.
 
 # Configuration guide
 ## Simple configuration
-If you have not specified parse='true' on a check, then status will simply check the given URL, and will report back as OK if the response has a 200 status code.  (This is the status code which indicates the page is available and not in error.).
+By default, Status will simply check the given URL(s), and will report back as OK if the URL can be successfully fetched.
 
 A simple configuration might look like this:
 ```json
@@ -30,7 +30,7 @@ A simple configuration might look like this:
   ]
 }
 ```
-This configuration will poll the URL my.domain.org/prod-db-status.json every 5 seconds (the default), and will show a green status tile, if the page was succesfully fetched.
+The above configuration will poll the URL my.domain.org/prod-db-status.json every 5 seconds (the default), and will show a green status tile, if the page was available.
 
 You can override how often pages are checked by specifying sleepBetweenChecksMs at the top level.  e.g.
 ```json
@@ -60,7 +60,7 @@ If you want to specify multiple checks, then define them in the 'checks' array. 
   ]
 }
 ```
-If you want to group checks, you can use a groups array.  e.g.
+If you want to group checks, you can use a 'group' array.  e.g.
 ```json
 {
   "sleepBetweenChecksMs": "10000",
@@ -93,25 +93,36 @@ If you want to group checks, you can use a groups array.  e.g.
 ]
 }
 ```
-Groups can be nested to any depth.  See here for an example that defined nested groups.
+Groups can be nested to any depth.  See here for an example that defines nested groups.
 
 ## Parsing fetched URLs for status
-The default behaviour of Status is to simply check if a URL returns status code 200.  However if your URL returns JSON, you can parse the returned JSON for information to show on the status tile.
+The default behaviour of Status is to simply check if a URL returns status code 200.  However if your URL returns JSON, you can parse the returned JSON for information to show on the status tile, by setting parse = true on a check. e.g.
+```json
+{
+  "checks": [
+    {
+      "name": "prod-db",
+      "url": "my.domain.org/prod-db.html",
+      "parse": true
+    }
+  ]
+}
+```
+During parsing, Status will look for the following fields:
 
-By default, Status looks for the following fields:
-
-* name (will be displayed on the status tile)
-* link (the status tile will be linked to this URL)
-* status (Will be used to create a css style on the status tile.  If you wish to use existing style classes, then should return 'ok', 'warning' or 'error').
-* statusText (Will be displayed as sub-text on the tile.)
-* statusToolTip (Will set the tooltip on the status tile. If not given, this will default to the value of 'link'.)
+* **name** (will be displayed on the status tile)
+* **link** (the status tile will be linked to this URL)
+* **status** (Will be used to create a css style on the status tile.  If you wish to use existing style classes, then should return 'ok', 'warning' or 'error').
+* **statusText** (Will be displayed as sub-text on the tile.)
+* **statusToolTip** (Will set the tooltip on the status tile. If not given, this will default to the value of 'link'.)
 
 Example JSON that could be parsed:
 ```json
 {
   "name": "web-server-3",
   "link": "http://my.domain.com/admin",
-  "status": "ok"
+  "status": "ok",
+  "statusText": "Success"
 }
 ```
 You can also return multiple status entries in an array.  If you return an array of entries from json (note the root node must be an array, not an object), then Status will create a status tile for each element in the array.  e.g.
@@ -191,5 +202,4 @@ h2 {
     display: none;
 }
 ```
-
 If you wish to see what classes are used on the generated status panel, then hit ctrl-shift-c on most browsers, and click on the element you are interested in.  Otherwise just hit F12 and browse the generated code.
