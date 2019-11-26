@@ -1,0 +1,31 @@
+{
+  "sleepBetweenChecksMs": "10000",
+  "group": [
+    {
+      "heading": "apac-prod",
+      "checks": [
+        {
+          "name": "prod-db",
+          "url": "checking/i-do-not-exist.html"
+        },
+        {
+          "name": "prod-web",
+          "url": "checking/test5.json"
+        }
+      ]
+    },
+    {
+      "heading": "apac-qa",
+      "checks": [
+        {
+          "name": "qa-db",
+          "url": "checking/test5.json"
+        },
+        {
+          "name": "qa-web",
+          "url": "checking/test5.json"
+        }
+      ]
+    }
+  ]
+}

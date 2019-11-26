@@ -1,0 +1,8 @@
+{
+  "checks": [
+    {
+      "name": "prod-active-directory",
+      "url": "checking/test5.json"
+    }
+  ]
+}

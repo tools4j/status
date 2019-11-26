@@ -1,5 +1,5 @@
 {
-  "sleepBetweenChecksMs": "10000",
+  "sleepBetweenChecksMs": "120000",
   "group": [{
     "heading": "Europe",
     "group": [
@@ -8,11 +8,11 @@
         "checks": [
           {
             "name": "prod-db",
-            "url": "test/test1.txt"
+            "url": "checking/test1.txt"
           },
           {
             "name": "prod-web",
-            "url": "test/test2.json"
+            "url": "checking/test2.json"
           }
         ]
       },
@@ -21,7 +21,7 @@
         "checks": [
           {
             "name": "qa-web",
-            "url": "test/test3.json"
+            "url": "checking/test3.json"
           }
         ]
       }
@@ -35,7 +35,7 @@
           "checks": [
             {
               "name": "americas-prod",
-              "url": "test/test4.json",
+              "url": "checking/test4.json",
               "parse": true
             }
           ]
@@ -45,7 +45,7 @@
           "checks": [
             {
               "name": "americas-uat",
-              "url": "test/test5.json",
+              "url": "checking/test5.json",
               "parse": true,
               "parseSpec": {
                 "name": {"propertyName": "name"},
@@ -62,7 +62,7 @@
           "checks": [
             {
               "name": "americas-qa",
-              "url": "test/blah.json"
+              "url": "checking/blah.json"
             }
           ]
         }

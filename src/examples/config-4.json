@@ -1,0 +1,9 @@
+{
+  "checks": [
+    {
+      "name": "lots-of-checks",
+      "url": "checking/test6.json",
+      "parse": true
+    }
+  ]
+}

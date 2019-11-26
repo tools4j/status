@@ -50,6 +50,10 @@ a.status-ok {
     background-color: #269b26;
 }
 
+a.status-ok .status-text {
+    display: none;
+}
+
 a.status-error {
     background-color: #de0000;
 }

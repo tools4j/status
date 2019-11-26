@@ -1,0 +1,56 @@
+[
+  {
+    "name": "uat1",
+    "link": "http://www.google.com",
+    "status": "error",
+    "statusText": "disk full"
+  },
+  {
+    "name": "uat2",
+    "link": "http://www.dropbox.com",
+    "status": "ok",
+    "statusText": "ok"
+  },
+  {
+    "name": "uat3",
+    "link": "http://www.hbo.com",
+    "status": "ok",
+    "statusText": "ok"
+  },
+  {
+    "name": "uat4",
+    "link": "http://www.hbo.com",
+    "status": "warning",
+    "statusText": "disk > 70%"
+  },
+  {
+    "name": "uat5",
+    "link": "http://www.hbo.com",
+    "status": "ok",
+    "statusText": "ok"
+  },
+  {
+    "name": "uat6",
+    "link": "http://www.hbo.com",
+    "status": "warning",
+    "statusText": "disk > 70%"
+  },
+  {
+    "name": "uat7",
+    "link": "http://www.hbo.com",
+    "status": "ok",
+    "statusText": "ok"
+  },
+  {
+    "name": "uat8",
+    "link": "http://www.hbo.com",
+    "status": "ok",
+    "statusText": "ok"
+  },
+  {
+    "name": "uat9",
+    "link": "http://www.hbo.com",
+    "status": "ok",
+    "statusText": "ok"
+  }
+]

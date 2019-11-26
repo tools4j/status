@@ -1,20 +1,21 @@
-# Introduction
-Status is a small HTML/JavaScript application that can visually monitor a set of URLs.
+'Status' is a small HTML/JavaScript application that can visually monitor a set of URLs.
+
+<img src="images/status-full-page.png"/>
 
 It was built for monitoring a set of microservices, but can be used to monitor anything which has an accessible URL.
 
 Status polls the configured URLs periodically and renders status 'tiles' based on the results.
 
 # Limitations
-## Status cannot easily access URLs from a different domain
-Status uses AJAX to fetch the config file, and to poll URLs.  Due to restrictions put in place in modern browsers to prevent Cross Site Scripting (XSS) attacks, AJAX cannot easily interact with pages from different domains.  <a href="https://www.moesif.com/blog/technical/cors/Authoritative-Guide-to-CORS-Cross-Origin-Resource-Sharing-for-REST-APIs/">See here</a> for more info.  If you wish to access pages on a different domain, then you will need to configure the "Access-Control-Allow-Origin" policy on the web server that you are polling.  See the documentation for your specific web server on how to configure.
+## Status cannot easily access URLs from different domains
+Status uses AJAX to fetch the config file, and to poll URLs.  Due to restrictions put in place in modern browsers to prevent Cross Site Scripting (XSS) attacks, AJAX cannot easily interact with pages from different domains.  <a href="https://www.moesif.com/blog/technical/cors/Authoritative-Guide-to-CORS-Cross-Origin-Resource-Sharing-for-REST-APIs/">See here</a> for more info.  If you wish to access pages on a different domain, then you will need to configure the "Access-Control-Allow-Origin" policy on the web server that you are 'checking'.  See the documentation for your specific web server on how to configure.
 
 ## Browser support
 Status uses EcmaScript6.  See <a href="https://www.w3schools.com/js/js_es6.asp">here</a> for a list of compatible browsers.  Anything after 2016 should be fine.  (With the exception of IE).
 
 # Installation
-* Download the latest distribution from <a href="tree/master/dist">here</a>.  
-* Unzip it to a folder which is served by a web server.  (It is not enough to just unzip to a directory and open into a web browser as Status uses ajax to fetch the config file and to poll URLs, and ajax won't work if the status html and JavaScript is not served from a web server.)
+* Download the latest distribution from <a href="https://github.com/benjwarner/status/tree/master/dist">here</a>.  
+* Unzip it to a folder which is served by a web server.  (It is not enough to just unzip to a directory and open into a web browser as Status uses ajax to fetch the config file and to poll URLs, and AJAX won't work if the status html and JavaScript is not served from a web server.)
 * Edit the config, and enter URLs that you wish to check.
 * View status.html on your web server.
 
@@ -22,13 +23,38 @@ Status uses EcmaScript6.  See <a href="https://www.w3schools.com/js/js_es6.asp">
 ## Simple configuration
 By default, Status will simply check the given URL(s), and will report back as OK if the URL can be successfully fetched.
 
-A simple configuration might look like this:
+The Status html should include (a sample is provided with the download):
+* A link to the provided status.css file.
+* A link to the provided jquery js file.
+* A link to the provided app.js file.
+* A html element to hold the content.
+* A call to the Sample constructor.
+
+Sample HTML:
+```html
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="status.css"/>
+    </head>
+    <body>
+        <div id="content"></div>
+    </body>
+    <script type="text/javascript" src="jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+        new Status("config.json", document.getElementById("content"))
+    </script>
+</html>
+```
+As per the above call to the Status constructor, you must pass in the path to a config json file, and the HTML element that will receive the content.
+
+A simple configuration JSON file might look like this:
 ```json
 {
   "checks": [
     {
       "name": "prod-db",
-      "url": "my.domain.org/prod-db-status.json"
+      "url": "my.domain.org/prod-db.html"
     }
   ]
 }
@@ -105,7 +131,7 @@ The default behaviour of Status is to simply check if a URL returns status code 
   "checks": [
     {
       "name": "prod-db",
-      "url": "my.domain.org/prod-db.html",
+      "url": "my.domain.org/prod-db.json",
       "parse": true
     }
   ]
@@ -131,28 +157,36 @@ Example JSON that could be parsed:
 You can also return multiple status entries in an array.  If you return an array of entries from json (note the root node must be an array, not an object), then Status will create a status tile for each element in the array.  e.g.
 ```json
 [
-    {
-      "name": "web-server-1",
-      "link": "http://my.domain.com/admin",
-      "status": "ok"
-    },
-    {
-      "name": "web-server-2",
-      "link": "http://my.domain.com/admin",
-      "status": "ok"
-    },
-    {
-      "name": "web-server-3",
-      "link": "http://my.domain.com/admin",
-      "status": "ok"
-    }
+  {
+    "name": "prod-db",
+    "statusText": "Server Down!",
+    "status": "error",
+    "link": "http://www.google.com"
+  },
+  {
+    "name": "prod-cache-1",
+    "statusText": "OK",
+    "status": "ok",
+    "link": "http://www.dropbox.com"
+  },
+  {
+    "name": "prod-cache-2",
+    "statusText": "Disk usage 95%",
+    "status": "warning",
+    "link": "http://www.hbo.com"
+  },
+  {
+    "name": "prod-web",
+    "statusText": "OK",
+    "status": "ok",
+    "link": "http://www.yahoo.com"
+  }
 ]
 ```
 will render:
+<img src="images/status-multiple-results.png"/>
 
-TODO
-
-If you wish to parse out _differently_ named properties from the returned JSON, then you will need to define a parse spec.  The default parseSpec is:
+If you wish to parse returned JSON which has different property names, then you will need to define a parse spec.  The default parseSpec is:
 ```json
 {
     "name": {"propertyName": "name"},
@@ -175,7 +209,7 @@ You can substitute any of these propertyName values to look for your own propert
 ```
 ...will extract out properties 'instance', 'url', 'statusCode' & 'version'.
 
-If you wish to do anything more complex, e.g. use the concatenation of two properties.  You can specify an "asCode" method.
+If you wish to do anything more complex than fetch properties, e.g. if you wish to display the concatenation of two properties as status text.  Then you can specify an "asCode" method.
 
 The 'asCode' method will run the subsequent text as JavaScript.  If you wish to reference the JSON block being parsed in an asCode term, it is available as 'jsonElement'.
 ```json
@@ -191,8 +225,26 @@ The above example will return a concatenation of the 'status' and 'version' prop
 
 NOTE: The 'asCode' method runs a JavaScript eval() statement.  The eval() statement runs whatever is passed to it in the local context.  Please ensure that the JSON your are parsing is from a trusted source, otherwise there is the potential for script injection.
 
+## Displaying multiple Status instances on the same page
+Just create two containers, and instantiate two Status objects.  e.g.
+```html
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="status.css"/>
+    </head>
+    <body>
+        <div id="content1"></div>
+        <div id="content2"></div>
+    </body>
+    <script type="text/javascript" src="jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+        new Status("config1.json", document.getElementById("content1"))
+        new Status("config2.json", document.getElementById("content2"))
+    </script>
+</html>
+```
 # Styling
-
 The supplied status.css file should get you most of the way.  Feel free to tweak it any way you wish to get the style that you want.
 
 Some tips:
@@ -206,3 +258,10 @@ h2 {
 }
 ```
 If you wish to see what classes are used on the generated status panel, then hit ctrl-shift-c on most browsers, and click on the element you are interested in.  Otherwise just hit F12 and browse the generated code.
+
+By default status text is not displayed if status is ok (did not return an error.)  If you wish to _always_ display status text, then remove the css:
+```css
+a.status-ok status-text {
+    display: none;
+}
+```

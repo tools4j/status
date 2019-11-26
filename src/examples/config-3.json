@@ -1,0 +1,13 @@
+{
+  "sleepBetweenChecksMs": "10000",
+  "checks": [
+    {
+      "name": "prod-linux-mail-server",
+      "url": "checking/test5.json"
+    },
+    {
+      "name": "prod-ms-exchange-server",
+      "url": "checking/test5.json"
+    }
+  ]
+}
