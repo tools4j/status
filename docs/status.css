@@ -1,0 +1,76 @@
+body, div, span, p {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color: white;
+}
+
+body {
+    font-size: 15px;
+    padding: 10px;
+}
+
+table {
+    font-size: inherit;
+}
+
+body {
+    background: black;
+}
+
+h1 {
+    font-size: 1.2em;
+}
+
+h2 {
+    display: none;
+}
+
+div.checks {
+    display: flex;
+}
+
+a.status {
+    background-color: #c07a16;
+    padding: 5px 10px;
+    flex-grow: 1;
+    margin: 5px;
+    border-radius: 5px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+a.status:link, a.status:visited, a.status:focus {
+    color: white;
+    text-decoration: none;
+}
+
+a.status-ok {
+    background-color: #269b26;
+}
+
+a.status-ok .status-text {
+    display: none;
+}
+
+a.status-error {
+    background-color: #de0000;
+}
+
+a.status-warning {
+    background-color: #ec951b;
+}
+
+a.status-404 {
+    background-color: #c07a16;
+}
+a.status span.name {
+    font-weight: bold;
+}
+
+a.status span.status-text:before {
+    /*Force status-text onto a new line*/
+    content: "\a ";
+    white-space: pre;
+}
