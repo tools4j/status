@@ -6,7 +6,7 @@ It was built for monitoring a set of microservices, but can be used to monitor a
 
 Status polls the configured URLs periodically and renders status 'tiles' based on the results.
 
-You can see working version <a href="https://tools4j.github.io/status/index.html">here</a>.  The code at this address can be viewed in the <a href="https://github.com/tools4j/status/tree/master/docs">docs</a> folder. (Start at index.html).
+You can see working version <a href="https://tools4j.github.io/status/index.html">here</a>.  The code at this address can be viewed in the <a href="https://github.com/tools4j/status/tree/master/docs">docs</a> folder. (Start at <a href="https://github.com/tools4j/status/tree/master/docs/index.html">index.html</a>).
 
 # Installation
 * Download the latest distribution from <a href="https://github.com/tools4j/status/tree/master/dist">here</a>.  
