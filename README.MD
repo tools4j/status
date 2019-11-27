@@ -6,7 +6,7 @@ It was built for monitoring a set of microservices, but can be used to monitor a
 
 Status polls the configured URLs periodically and renders status 'tiles' based on the results.
 
-You can see working version <a href="https://tools4j.github.io/status/index.html">here</a>.  The code at this address can be viewed in the <a href="tree/master/docs">docs</a> folder.
+You can see working version <a href="https://tools4j.github.io/status/index.html">here</a>.  The code at this address can be viewed in the <a href="https://github.com/tools4j/status/tree/master/docs">docs</a> folder.
 
 # Limitations
 ## Status cannot easily access URLs from different domains
@@ -16,7 +16,7 @@ Status uses AJAX to fetch the config file, and to poll URLs.  Due to restriction
 Status uses EcmaScript6.  See <a href="https://www.w3schools.com/js/js_es6.asp">here</a> for a list of compatible browsers.  Anything after 2016 should be fine.  (With the exception of IE).
 
 # Installation
-* Download the latest distribution from <a href="tree/master/dist">here</a>.  
+* Download the latest distribution from <a href="https://github.com/tools4j/status/tree/master/dist">here</a>.  
 * Unzip it to a folder which is served by a web server.  (It is not enough to just unzip to a directory and open into a web browser as Status uses ajax to fetch the config file and to poll URLs, and AJAX won't work if the status html and JavaScript is not served from a web server.)
 * Edit the config, and enter URLs that you wish to check.
 * View status.html on your web server.
