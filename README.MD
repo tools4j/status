@@ -6,7 +6,7 @@ It was built for monitoring a set of microservices, but can be used to monitor a
 
 Status polls the configured URLs periodically and renders status 'tiles' based on the results.
 
-You can see working version here.  The code at this address can be viewed in the <a href="tree/master/docs">docs</a> folder.
+You can see working version <a href="https://tools4j.github.io/status/index.html">here</a>.  The code at this address can be viewed in the <a href="tree/master/docs">docs</a> folder.
 
 # Limitations
 ## Status cannot easily access URLs from different domains
